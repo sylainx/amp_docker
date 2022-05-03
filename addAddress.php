@@ -58,6 +58,11 @@
 
 <body>
 
+<?php 
+    if ( empty($_SESSION['user']['name'])) {
+        header("location: ./index.php");
+    }
+  ?>
 
 
 <!-- HEADER  -->

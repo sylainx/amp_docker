@@ -1,15 +1,10 @@
 <?php
   session_start();
   
-  
     $globalErrors=array();
 
-  // On inclut la connexion à la base de données
-  require_once('./ConnexionBD/bdd.php');
-  // On inclut la connexion à la base de données
-  require_once('./functions/functions.php');
-  include_once('./traitementAuthenticafication.php');
-   
+    include_once('./traitementAuthenticafication.php');
+    
 ?>
 
 <!doctype html>
@@ -58,12 +53,6 @@
   </head>
   <body class="mx-auto py-3 text-center gradient-custom">
     
-  <?php 
-        if ( !empty($_SESSION['user'])) {
-            header("location: ./dashboard.php");
-        }
-    ?>
-
 
   <section class="gradient-custom">
   <div class="container py-5 h-100">
@@ -76,7 +65,7 @@
             <div class="mb-md-2 mt-md-4 pb-5">
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-              <p class="text-white-50 mb-3">Please enter your code user and password to login!</p>
+              <p class="text-white-50 mb-5">Please enter your code user and password to login!</p>
 
               <!-- ------------ A L E R T  E R R O R  -------->
               <?php
@@ -121,6 +110,7 @@
           <div class="mx-auto mt-2 text-white-50">
               <small class="text-muted" >Vous n'avez pas de compte ?
               <a href="./signup.php" class="btn text-white fw-bold py-1">S'inscrire</a>
+              <a href="./dashboard.php" class="btn text-white fw-bold py-1">Dashboard</a>
               </small>
           </div>
       

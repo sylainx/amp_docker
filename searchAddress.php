@@ -1,4 +1,6 @@
 <?php
+  session_start();
+
     $addressArray= array();
     $indexToSeeAdr = 0;
     include("./ConnexionBD/bdd.php");
@@ -49,6 +51,11 @@
 
 <body>
 
+<?php 
+    if ( empty($_SESSION['user']['name'])) {
+        header("location: ./index.php");
+    }
+  ?>
 
 
 <!-- HEADER  -->
@@ -149,7 +156,7 @@
                   loading="lazy" 
                   allowfullscreen 
                   referrerpolicy="no-referrer-when-downgrade" 
-                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBkThEs8IJlFKMUedk0hiH60obh30N6ETw&q=<?= $addressArray[$indexToSeeAdr]['city'] ?>">
+                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBkThEs8IJlFKMUedk0hiH60obh30N6ETw&q=<?= str_replace(' ', '+', $addressArray[$indexToSeeAdr]["city"]."+".$addressArray[$indexToSeeAdr]["adresse"]."+".$addressArray[$indexToSeeAdr]["country"]) ?>">
                 </iframe>
                 
             <?php endif; ?>
@@ -163,31 +170,16 @@
       </div>
     </div>
 
-
-    <!-- MODAL -->
-    <!-- <div class="modal modal-alert position-absolute d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalChoice">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-4 text-center">
-        <h5 class="mb-0">Voulez-vous vraiment ajouter cette adresse ?</h5>
-        <p class="mb-0">You can always change your mind in your account settings.</p>
-      </div>
-      <div class="modal-footer flex-nowrap p-0">
-        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right"><strong>Yes</strong></button>
-        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">No</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
     <!-- MODAL END  -->
 
     </main>
 
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/searchAdress.js"></script>
+    
+    <!-- api key: AIzaSyBkThEs8IJlFKMUedk0hiH60obh30N6ETw -->
 
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"> -->
+    <script async defer src="https://www.google.com/maps/search/?api=AIzaSyBkThEs8IJlFKMUedk0hiH60obh30N6ETw&query=inuka"> </script>
     
 </body>
 

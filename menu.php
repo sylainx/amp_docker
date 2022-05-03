@@ -13,11 +13,12 @@
 
         <div class="text-end">
           <?php if ( isset($_SESSION['user']) && $_SESSION['user']) { ?>            
-            <button type="button" class="btn btn-warning">Logout</button>          
+            <a href="/logout.php" class="btn btn-warning">Logout</a>          
           <?php
           }
           ?>
         </div>
+
       </div>
     </div>
   </header>

@@ -12,10 +12,16 @@
       </div>
 
       <!-- Modal body -->
+      <?php if( $codeToShow) { ?>
       <div class="modal-body">
-          
-        <p> Veuillez copier votre votre code user pour vous connecter </p>
+            <p> Veuillez sauvegarder ce code. Vous en aurez <b>toujours</b> besoin pour vous connecter: </p>
+            <div class="alert alert-dark" role="alert">
+                <?= $codeToShow ?>
+            </div>
       </div>
+      <?php
+      }
+      ?>
 
       <!-- Modal footer -->
       <div class="modal-footer">

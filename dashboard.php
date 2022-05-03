@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     $AllAddress= array();
     include("./ConnexionBD/bdd.php");
     require_once("./Controllers/DashboardController.php");
@@ -47,13 +49,19 @@
 
 <body>
 
+<?php 
+    if ( empty($_SESSION['user']['name'])) {
+        header("location: ./index.php");
+    }
+
+  ?>
 
 
 <!-- HEADER  -->
+<?php include('./menu.php') ?>
 
-  <?php include('./menu.php') ?>
 <!-- HEADER DONE  -->
-
+    
 
     <main class="container">
  

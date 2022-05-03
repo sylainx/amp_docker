@@ -2,8 +2,14 @@
   session_start();
   
   $globalErrors=array();
+  $codeToShow= null;
 
+  // On inclut la connexion à la base de données
+  require_once('./ConnexionBD/bdd.php');
+  // On inclut la connexion à la base de données
+  require_once('./functions/functions.php');
   include_once('./traitementAuthenticafication.php');
+
 
 ?>
 
@@ -16,7 +22,7 @@
     <title>APM docker project</title>
 
     <!-- Bootstrap core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -52,14 +58,20 @@
 
   </head>
 <body class="text-center gradient-custom">
-    
+
+    <?php 
+        if ( !empty($_SESSION['user'])) {
+            header("location: ./dashboard.php");
+        }
+    ?>
+
   <div class="container mt-3">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupSuccess">
       Open modal
     </button>
   </div>
 
-  <?php include("../assets/modal.php"); ?>
+  <?php include("./assets/modal.php"); ?>
     
 
   <section class="mx-auto py-3">
@@ -73,38 +85,40 @@
             <div class="mb-md-2 mt-md-4 pb-5">
 
               <h2 class="fw-bold mb-2 text-uppercase">Inscription</h2>
-              <p class="text-white-50 mb-3">Veuillez entrer ces informations pour avoir accès au système!</p>
+              <p class="text-white-50 mb-1">Veuillez entrer ces informations pour avoir accès au système!</p>
+              
               <!-- ------------ A L E R T  E R R O R  -------->
-              <div class="mx-auto mb-4">
               <?php
                 if (count($globalErrors) > 0) {
+                    echo '<div class="mx-auto mt-2 mb-4">';
                     foreach ($globalErrors as $error) {
                         ?>
-                    <small class="text-muted text-white-50 py-2"><?=$error?></small>
+                    <small class="alert alert-info text-black-50 my-2 py-2"><?=$error?></small>
                 <?php
                     }
+                    echo '</div>';
                 }
                 ?>
-                </div>
+                
                 <!-- ------------ F I N   A L E R T  E R R O R  -------->
 
               <div class="form-floating mb-4 text-black-50">
-              <input type="text" class="form-control" name="nameUser" id="floatingName" placeholder="John Doe" required value="<?= ( isset($_POST['nameUser']) ) ? $_POST['nameUser'] :  ''; ?>"/>
+              <input type="text" class="form-control" name="nameUser" id="floatingName" placeholder="John Doe" required value="<?= (isset($_POST['nameUser'])) ? $_POST['nameUser'] :  ''; ?>"/>
                 <label for="floatingName" class="text-black-50">Nom</label>
               </div>
 
               <div class="form-floating mb-4 text-black-50">           
-              <input type="email" class="form-control" name="email" id="floatingEmail" placeholder="hi@gmail.com"  required value="<?= ( isset($_POST['email']) ) ? $_POST['email'] :  ''; ?>"/>
+              <input type="email" class="form-control" name="email" id="floatingEmail" placeholder="hi@gmail.com"  required value="<?= (isset($_POST['email'])) ? $_POST['email'] :  ''; ?>"/>
                 <label class="form-label" class="text-black-50" for="floatingEMail">Email</label>
               </div>
 
               <div class="form-floating mb-4 text-black-50">           
-                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password"  required value="<?= ( isset($_POST['password']) ) ? $_POST['password'] :  ''; ?>"/>
+                <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password"  required value="<?= (isset($_POST['password'])) ? $_POST['password'] :  ''; ?>"/>
                 <label class="form-label" class="text-black-50" for="floatingPassword">Password</label>
               </div>
 
               <div class="form-floating mb-4 text-black-50">           
-                <input type="password" class="form-control" name="confirmPwd" id="floatingConfirmPassword" placeholder="Password"  required value="<?= ( isset($_POST['confirmPwd']) ) ? $_POST['confirmPwd'] :  ''; ?>"/>
+                <input type="password" class="form-control" name="confirmPwd" id="floatingConfirmPassword" placeholder="Password"  required value="<?= (isset($_POST['confirmPwd'])) ? $_POST['confirmPwd'] :  ''; ?>"/>
                 <label class="form-label" class="text-black-50" for="floatingConfirmPassword">Confirm Password</label>
               </div>
 
@@ -115,7 +129,7 @@
             <hr class="my-4">
           <div class="mx-auto mt-2 text-white-50">
               <small class="text-muted" >Avez-vous déjà un compte ?
-              <a href="../index.php" class="btn text-white fw-bold py-1">Se connecter</a>
+              <a href="./index.php" class="btn text-white fw-bold py-1">Se connecter</a>
               </small>
           </div>
       
@@ -125,34 +139,12 @@
     </div>
 
 
-    <!-- ------------- M O D A L ------------- -->
-                
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> This is your code user </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- ------------- F I N   M O D A L ------------- -->
-
   </div>
 </section>
 
 
     
-<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
 
   </body>
 </html>
