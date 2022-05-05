@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  php-apache-environment:
+    container_name: php-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./php/src:/var/www/html/
+    ports:
+      - 8000:80
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: inuka
+      MYSQL_DATABASE: inuka_4emeannee_projet_amp_docker
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: MYSQL_PASSWORD
+    ports:
+      - "9906:3306"
+    volumes:
+      - ./php/db_data/:/var/lib/mysql
+
+volumes:
+  data-base: {}
